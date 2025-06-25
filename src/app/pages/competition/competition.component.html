@@ -1,0 +1,226 @@
+<div class="flex items-center justify-center mt-10">
+  <div *ngIf="competitionSuccess" role="alert" class="alert alert-success  max-w-3xl">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>{{ successMessage || 'Operation completed successfully!' }}</span>
+  </div>
+  <!-- Error Alert -->
+  <div *ngIf="competitionError" role="alert" class="alert alert-error mb-4 max-w-md">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>{{ errorMessage }}</span>
+  </div>
+</div>
+<div class="min-h-screen flex items-center justify-center p-2 sm:p-5">
+  <div class="w-full max-w-7xl">
+    <!-- Button positioned relative to table container -->
+    <div class="flex justify-start mb-4 px-2 sm:px-0">
+      <button class="btn btn-sm sm:btn-md" onclick="my_modal_5.showModal()">
+        <span class="hidden sm:inline">Add Competition</span>
+        <span class="sm:hidden">Add</span>
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto rounded-xl sm:rounded-2xl" data-theme="dracula">
+      <table class="table table-xs sm:table-sm lg:table-md">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th class="min-w-[120px]">Competition</th>
+            <th class="hidden md:table-cell min-w-[200px]">Description</th>
+            <th class="min-w-[100px]">Timeline</th>
+            <th class="min-w-[80px]">Status</th>
+            <th class="min-w-[120px]">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (comp of gridData; track $index) {
+          <tr>
+            <td>
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div>
+                  <div class="font-bold text-xs sm:text-sm lg:text-base">
+                    {{ comp.title }}
+                  </div>
+                </div>
+              </div>
+            </td>
+            <!-- Fixed Description Column -->
+            <td class="hidden md:table-cell max-w-xs">
+              <div class="truncate text-xs lg:text-sm">
+                {{ comp.description }}
+              </div>
+            </td>
+            <!-- Fixed Timeline Column -->
+            <td>
+              <div class="text-xs sm:text-sm">
+                <div><strong>Start:</strong> {{comp.startDate | date:'dd-MM-yyy'}}</div>
+                <div><strong>End:</strong> {{comp.endDate | date:'dd-MM-yyy'}}</div>
+
+              </div>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="getBadgeClass(comp.status)">{{ comp.status }}</span>
+            </td>
+            <td>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button class="btn btn-info btn-xs" (click)="editCompetition(comp)">
+                  <span class=" hidden sm:inline">Edit</span>
+                  <span class="sm:hidden">Edit</span>
+                </button>
+                <button class="btn btn-error btn-xs" (click)="deleteCompetition(comp)">
+                  <span class="hidden sm:inline">Delete</span>
+                  <span class="sm:hidden">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+
+        </tbody>
+        <!-- foot -->
+        <tfoot class="hidden sm:table-footer-group">
+          <tr>
+            <th>Competition</th>
+            <th class="hidden md:table-cell">Description</th>
+            <th>Timeline</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal unchanged -->
+  <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box max-w-sm sm:max-w-lg">
+      <h3 class="text-lg font-bold">Add Competition</h3>
+
+      <form #competitionForm="ngForm" (ngSubmit)="onSave()">
+        <div class="form-control w-full">
+
+          <label class="label">
+            <span class="label-text">Competition Title</span>
+          </label>
+          <input type="text" placeholder="Enter title" class="input input-bordered w-full" [(ngModel)]="compObj.title"
+            name="title" id="title" required />
+
+          <label class="label mt-4 me-2">
+            <span class="label-text">Description</span>
+          </label>
+          <textarea class="textarea textarea-bordered mt-2" placeholder="Enter description"
+            [(ngModel)]="compObj.description" name="description" id="description" required></textarea>
+
+          <label class="label mt-4">
+            <span class="label-text">Start Date</span>
+          </label>
+          <input type="date" class="input input-bordered w-full" [(ngModel)]="compObj.startDate" name="startDate"
+            id="startDate" required />
+
+          <label class="label mt-4">
+            <span class="label-text">End Date</span>
+          </label>
+          <input type="date" class="input input-bordered w-full" [(ngModel)]="compObj.endDate" name="endDate"
+            id="endDate" required />
+
+          <label class="label mt-4">
+            <span class="label-text">Status</span>
+          </label>
+          <select class="select select-bordered w-full" [(ngModel)]="compObj.status" name="status" id="status" required>
+            <option value="" disabled>Choose competition Status</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="modal-action">
+          <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="!competitionForm.valid"
+              onclick="my_modal_5.close()">
+              Save
+            </button>
+            <button type="button" class="btn" onclick="my_modal_5.close()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+  <dialog id="edit_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box max-w-sm sm:max-w-lg">
+      <h3 class="text-lg font-bold">Edit Competition</h3>
+      <form #editForm="ngForm" (ngSubmit)="onUpdate()">
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text">Competition Title</span>
+          </label>
+          <input type="text" placeholder="Enter title" class="input input-bordered w-full" [(ngModel)]="editObj.title"
+            name="editTitle" required />
+
+          <label class="label mt-4">
+            <span class="label-text">Description</span>
+          </label>
+          <textarea class="textarea textarea-bordered mt-2" placeholder="Enter description"
+            [(ngModel)]="editObj.description" name="editDescription" required></textarea>
+
+          <label class="label mt-4">
+            <span class="label-text">Start Date</span>
+          </label>
+          <input type="date" class="input input-bordered w-full" [(ngModel)]="editObj.startDate" name="editStartDate"
+            required />
+
+          <label class="label mt-4">
+            <span class="label-text">End Date</span>
+          </label>
+          <input type="date" class="input input-bordered w-full" [(ngModel)]="editObj.endDate" name="editEndDate"
+            required />
+
+          <label class="label mt-4">
+            <span class="label-text">Status</span>
+          </label>
+          <select class="select select-bordered w-full" [(ngModel)]="editObj.status" name="editStatus" required>
+            <option value="" disabled>Choose competition Status</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="modal-action">
+          <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid">
+              Update
+            </button>
+            <button type="button" class="btn" onclick="edit_modal.close()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+  <dialog id="delete_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold text-error">Delete Competition</h3>
+      <p class="py-4">Are you sure you want to delete <strong>"{{ deleteObj?.title }}"</strong>?</p>
+      <p class="text-sm text-gray-500">This action cannot be undone.</p>
+
+      <div class="modal-action">
+        <div class="flex gap-2">
+          <button class="btn btn-error" (click)="confirmDelete()" [disabled]="!deleteObj">
+            Delete
+          </button>
+          <button type="button" class="btn" (click)="closeDeleteModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</div>

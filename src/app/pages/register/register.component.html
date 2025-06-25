@@ -1,0 +1,40 @@
+<!-- Success Alert -->
+<div class="flex items-center justify-center mt-10">
+  <div *ngIf="registrationSuccess" role="alert" class="alert alert-success  max-w-3xl">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>Registration successful! Welcome aboard!</span>
+  </div>
+  <!-- Error Alert -->
+  <div *ngIf="registrationError" role="alert" class="alert alert-error mb-4 max-w-md">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>{{ errorMessage }}</span>
+  </div>
+</div>
+
+<div class="flex items-center justify-center mt-30 ">
+  <form id="registerForm">
+    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 " data-theme="winter">
+      <legend class="fieldset-legend font-bold text-[20px]">Register Account</legend>
+      <label class="label">Full Name</label>
+      <input type="text" class="input" [(ngModel)]="registerUser.fullName" placeholder="Full Name" name="fullName"
+        id="fullName" />
+      <label class="label">Collage Name</label>
+      <input type="text" class="input" [(ngModel)]="registerUser.collegeName" placeholder="Collage Name"
+        name="collegeName" id="collegeName" />
+      <label class="label">Email</label>
+      <input type="email" class="input" placeholder="Email" [(ngModel)]="registerUser.email" name="email" id="email" />
+
+      <label class="label">Password</label>
+      <input type="password" class="input" placeholder="Password" name="password" id="password"
+        [(ngModel)]="registerUser.password" />
+
+      <button class="btn btn-neutral mt-4" type="submit" (click)="onRegister()">Resgister</button>
+    </fieldset>
+  </form>
+</div>

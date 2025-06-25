@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+html {
+  background-color: white;
+}
+@utility flex-center {
+  @apply flex items-center justify-center;
+}

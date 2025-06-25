@@ -1,0 +1,58 @@
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-theme="winter">
+  <!-- Users -->
+  <div class="stats bg-base-100 shadow">
+    <div class="stat">
+      <div class="stat-title">Total Users</div>
+      <div class="stat-value text-primary">{{dahsboardData.totalUsers}}</div>
+    </div>
+  </div>
+
+  <!-- Competitions -->
+  <div class="stats bg-base-100 shadow">
+    <div class="stat">
+      <div class="stat-title">Total Competitions</div>
+      <div class="stat-value text-secondary">{{dahsboardData.totalCompetitions}}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Ongoing</div>
+      <div class="stat-value text-warning">{{dahsboardData.ongoingCompetitions}}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Completed</div>
+      <div class="stat-value text-success">{{dahsboardData.completedCompetitions}}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Upcoming</div>
+      <div class="stat-value text-info">{{dahsboardData.upcomingCompetitions}}</div>
+    </div>
+  </div>
+
+  <!-- Submissions -->
+  <div class="stats bg-base-100 shadow">
+    <div class="stat">
+      <div class="stat-title">Total Submissions</div>
+      <div class="stat-value text-primary">{{dahsboardData.totalProjectSubmissions}}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Pending</div>
+      <div class="stat-value text-warning">{{dahsboardData.pendingSubmissions}}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Approved</div>
+      <div class="stat-value text-success">{{dahsboardData.approvedSubmissions}}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Rejected</div>
+      <div class="stat-value text-error">{{dahsboardData.rejectedSubmissions}}</div>
+    </div>
+  </div>
+
+  <!-- Winners -->
+  <div class="stats bg-base-100 shadow">
+    <div class="stat">
+      <div class="stat-title">Winners Declared</div>
+      <div class="stat-value text-accent">{{dahsboardData.winnersDeclared}}</div>
+    </div>
+  </div>
+
+</div>

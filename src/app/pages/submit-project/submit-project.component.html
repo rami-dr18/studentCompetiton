@@ -1,0 +1,86 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+  <!-- Left Column: Form -->
+  <div class="shadow rounded-lg p-6 " data-theme="winter">
+    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
+      <legend class="fieldset-legend text-black text-2xl">Competition Entry Form</legend>
+
+      <label class="label w-full">Project Title</label>
+      <input type="text" class="input w-full" placeholder="Project Title" name="projectTitle" id="projectTitlte"
+        [(ngModel)]="projectObj.projectTitle" />
+
+      <label class="label">Project Description</label>
+      <textarea name="description" id="description" placeholder="Project Description" class="textarea w-full"
+        [(ngModel)]="projectObj.description"></textarea>
+
+      <label class=" label">Submission Date</label>
+      <input type="date" class="input input-bordered w-full" [(ngModel)]="projectObj.submissionDate"
+        name="submissionDate" id="submissionDate" />
+      <label class=" label">github Link</label>
+      <input type="text" class="input w-full" name="githubLink" id="githubLink" [(ngModel)]="projectObj.githubLink" />
+
+      <button class="btn btn-primary mt-4 w-full" (click)="onSave()">Submit</button>
+    </fieldset>
+  </div>
+
+  <!-- Right Column: Tables -->
+  <div class="space-y-6">
+    <!-- Table 1: Recent Participants -->
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100" data-theme="cupcake">
+      <h3 class=" text-lg font-semibold mb-2 ms-2 mt-2">Submission Guidelines</h3>
+      <table class="table w-full text-sm">
+
+        <tbody>
+          <tr>
+            <td>
+              <img src="https://cdn-icons-png.freepik.com/512/11601/11601272.png?ga=GA1.1.572962548.1729020399"
+                alt="tick" class="inline-block w-4 h-4 me-2" />
+              Ensure your project adheres to the competition requirements
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="https://cdn-icons-png.freepik.com/512/11601/11601272.png?ga=GA1.1.572962548.1729020399"
+                alt="tick" class="inline-block w-4 h-4 me-2" />
+              Include a detailed description of your project
+            </td>
+          </tr>
+          <tr>
+            <td><img src="https://cdn-icons-png.freepik.com/512/11601/11601272.png?ga=GA1.1.572962548.1729020399"
+                alt="tick" class="inline-block w-4 h-4 me-2" />Upload all required project filess</td>
+          </tr>
+          <tr>
+            <td>
+              <img src="https://cdn-icons-png.freepik.com/512/11601/11601272.png?ga=GA1.1.572962548.1729020399"
+                alt="tick" class="inline-block w-4 h-4 me-2" />Provide clear installation/setup instructions
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="https://cdn-icons-png.freepik.com/512/11601/11601272.png?ga=GA1.1.572962548.1729020399"
+                alt="tick" class="inline-block w-4 h-4 me-2" />List all team members who contributed
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table 2: Top Winners -->
+    <div class=" shadow rounded-lg p-4 overflow-auto text-black" data-theme="autumn">
+      <h3 class="text-lg font-semibold mb-2">Competition Details</h3>
+      <table class="table w-full text-sm ">
+        <tbody>
+          <tr>
+            <td>{{competitionData.title}}</td>
+          </tr>
+          <tr>
+            <td>{{competitionData.endDate}}</td>
+          </tr>
+          <tr>
+            <td>{{competitionData.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
